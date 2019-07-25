@@ -2,8 +2,6 @@
 
 Created by : Mr Dk.
 
-Created by : Mr Dk.
-
 2019 / 07 / 24 21:47
 
 Nanjing, Jiangsu, China
