@@ -1,4 +1,4 @@
-# Chapter 4 - 80X86 保护模式及其编程
+# Chapter 4.1-4.2 -  80X86 系统寄存器和系统指令 & 保护模式内存管理
 
 Created by : Mr Dk.
 

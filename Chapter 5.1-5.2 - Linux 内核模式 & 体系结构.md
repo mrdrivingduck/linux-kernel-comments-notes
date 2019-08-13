@@ -1,4 +1,4 @@
-# Chapter 5 - Linux 内核体系结构
+# Chapter 5.1-5.2 - Linux 内核模式 & 体系结构
 
 Created by : Mr Dk.
 
