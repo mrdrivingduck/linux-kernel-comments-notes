@@ -2,11 +2,13 @@
 
 Created by : Mr Dk.
 
-2019 / 08 / 20 11:12
+2019 / 08 / 20 11:58
 
 Ningbo, Zhejiang, China
 
 ---
+
+## 8.7 signal.c 程序
 
 ### 8.7.1 功能描述
 
