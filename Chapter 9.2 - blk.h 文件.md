@@ -62,7 +62,7 @@ extern struct request request[NR_REQUEST];
 extern struct task_struct * wait_for_request;
 ```
 
-#### 数据块总数指针数组
+#### 数据块总数指针数组 blk_size[]
 
 指向对应主设备号的总块数数组 hd_sizes[]
 
@@ -105,7 +105,7 @@ extern int * blk_size[NR_BLK_DEV];
 #endif
 ```
 
-#### 当前请求项的宏
+#### 当前请求项的宏 CURRENT
 
 ```c
 #define CURRENT (blk_dev[MAJOR_NR].current_request) // 主设备的当前请求指针
@@ -161,7 +161,7 @@ extern inline void end_request(int uptodate)
 }
 ```
 
-#### 请求项初始化宏
+#### 请求项初始化宏 INIT_REQUEST
 
 几个块设备驱动程序的开始处
 
