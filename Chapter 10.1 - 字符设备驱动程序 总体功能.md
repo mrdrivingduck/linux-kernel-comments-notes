@@ -88,7 +88,7 @@ Linux 0.12 内核支持三个终端设备：
 
 ```c
 struct tty_queue {
-    unsigned long data;
+    unsigned long data; // ?
     unsigned long head; // 数据头指针
     unsigned long tail; // 数据尾指针
     struct task_struct * proc_list; // 等待缓冲队列的进程列表
