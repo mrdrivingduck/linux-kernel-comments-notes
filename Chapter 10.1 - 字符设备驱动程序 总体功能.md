@@ -93,7 +93,7 @@ struct tty_queue {
     unsigned long tail; // 数据尾指针
     struct task_struct * proc_list; // 等待缓冲队列的进程列表
     char buf[1024]; // 队列缓冲区
-}
+};
 ```
 
 每个 tty 字符队列的缓冲区长度为 1K 字节
