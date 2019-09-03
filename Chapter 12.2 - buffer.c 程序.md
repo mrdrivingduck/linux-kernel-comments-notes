@@ -434,7 +434,7 @@ struct buffer_head * get_hash_table(int dev, int block)
 * 修改标志的权重较高
 
 ```c
-#define BADNESS(bh) (((bh)->b_dirt << 1) + (bh)->b_lock)
+#define BADNESS(bh) (((bh)->b_dirt<< 1)+(bh)->b_lock)
 ```
 
 ```c
