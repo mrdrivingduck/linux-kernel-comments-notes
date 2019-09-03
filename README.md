@@ -1,7 +1,7 @@
 # linux-kernel-comments-notes
 🐧 Notes of reading Linux kernel source code.
 
-Created By : Mr Dk.
+Created by : Mr Dk.
 
 2019 / 07 / 17 @Nanjing, Jiangsu, China
 
