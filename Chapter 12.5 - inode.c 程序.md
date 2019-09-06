@@ -52,7 +52,7 @@ Nanjing, Jiangsu, China
 
 #### inode 的数据结构
 
-磁盘上的 inode (32B) - 
+磁盘上的 inode (32B)
 
 ```c
 struct d_inode {
