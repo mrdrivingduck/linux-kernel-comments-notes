@@ -113,7 +113,7 @@ static int match(int len, const char * name, struct dir_entry * de)
 
 > 代码中对于 `../` 的特殊处理，涉及到文件系统挂载的问题：
 >
-> ![mount](./img/mount.png)
+> ![mount](../img/mount.png)
 >
 > 挂载点位于 FS1 的目录 `/.../dir` 上
 >

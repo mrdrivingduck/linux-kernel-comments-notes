@@ -44,7 +44,7 @@ Ningbo, Zhejiang, China
 
 整体过程如图所示：
 
-![8-4](./img/8-4.png)
+![8-4](../img/8-4.png)
 
 ### 8.2.2 代码注释
 

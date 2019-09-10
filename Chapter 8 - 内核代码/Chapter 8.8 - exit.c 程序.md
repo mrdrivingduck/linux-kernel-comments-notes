@@ -30,7 +30,7 @@ Ningbo, Zhejiang, China
 
 将任务 p 从进程双向链表中删除：
 
-![5-20](./img/5-20.png)
+![5-20](../img/5-20.png)
 
 ```c
 void release(struct task_struct * p)
@@ -229,7 +229,7 @@ int sys_kill(int pid, int sig)
 * 组外最后一个连接父进程的进程终止
 * 最后一个父进程的直接后裔终止
 
-![5-20](./img/5-20.png)
+![5-20](../img/5-20.png)
 
 孤儿进程组中的所有进程会与它们的作业控制 shell 断开联系
 

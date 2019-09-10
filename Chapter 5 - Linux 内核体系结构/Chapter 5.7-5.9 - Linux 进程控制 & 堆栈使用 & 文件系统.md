@@ -140,7 +140,7 @@ struct task_struct {
 * task_struct *p_ysptr - 指向比自己后创建的相邻进程的指针
 * task_struct *p_osptr - 指向比自己早创建的相邻进程的指针
 
-![5-20](./img/5-20.png)
+![5-20](../img/5-20.png)
 
 * unsigned short uid - 拥有该进程的用户 id
 * unsigned short euid - 有效用户 id
@@ -409,7 +409,7 @@ Linux 0.12 系统中共使用了四种堆栈
 
 进程被创建时，用户态指针被设置为地址空间靠近末端处 (接近 64MB 顶端)：
 
-![5-25](./img/5-25.png)
+![5-25](../img/5-25.png)
 
 由于 Linux 实现了 Copy On Right
 
@@ -431,7 +431,7 @@ Linux 0.12 系统中共使用了四种堆栈
 
 即，和 PCB 放在同一页面内：
 
-![5-26](./img/5-26.png)
+![5-26](../img/5-26.png)
 
 #### 任务 0 和任务 1 的堆栈
 
