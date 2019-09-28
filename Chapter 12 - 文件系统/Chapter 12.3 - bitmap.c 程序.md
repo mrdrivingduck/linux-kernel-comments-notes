@@ -31,7 +31,7 @@ Nanjing, Jiangsu, China
 
 ### 12.3.2 代码注释
 
-#### 将指定地址处 1024B 的内存清零 - clear_block(addr)
+#### clear_block(addr) - 将指定地址处 1024B 的内存清零
 
 ```c
 #define clear_block(addr) \
@@ -41,7 +41,7 @@ __asm__("cld\n\t" \
         ::"a"(0),"c"(BLOCK_SIZE/4),"D"((long)(addr)):"cx","di")
 ```
 
-#### 把指定地址开始的第 nr 个 bit 置位 - set_bit(nr, addr)
+#### set_bit(nr, addr) - 把指定地址开始的第 nr 个 bit 置位
 
 ```c
 #define set_bit(nr,addr) ({ \
@@ -51,7 +51,7 @@ __asm__ __volatile__("btsl %2,%3\n\tsetb %%al": \
 res;})
 ```
 
-#### 复位指定地址开始的第 nr 个 bit - clear_bit(nr, addr)
+#### clear_bit(nr, addr) - 复位指定地址开始的第 nr 个 bit
 
 ```c
 #define clear_bit(nr,addr) ({ \
@@ -61,7 +61,7 @@ __asm__ __volatile__("btrl %2,%3\n\tsetnb %%al": \
 res;})
 ```
 
-#### 从 addr 开始寻找第 1 个 0 值 bit 位 - find_first_zero(addr)
+#### find_first_zero(addr) - 从 addr 开始寻找第 1 个 0 值 bit 位
 
 ```c
 #define find_first_zero(addr) ({ \
@@ -81,7 +81,7 @@ __asm__("cld\n" \
 __res;})
 ```
 
-#### 释放逻辑块 - free_block()
+#### free_block() - 释放逻辑块
 
 ```c
 int free_block(int dev, int block)
@@ -127,7 +127,7 @@ int free_block(int dev, int block)
 }
 ```
 
-#### 申请逻辑块 new_block()
+#### new_block() - 申请逻辑块
 
 在逻辑块 bitmap 中寻找第一个 0 值 bit 位 (空闲逻辑块)，占用该逻辑块
 
@@ -178,7 +178,7 @@ int new_block(int dev)
 }
 ```
 
-#### 释放 inode - free_inode()
+#### free_inode() - 释放 inode
 
 判断给定 inode 的有效性和可释放型
 
@@ -232,7 +232,7 @@ void free_inode(struct m_inode * inode)
 }
 ```
 
-#### 申请 inode - new_inode()
+#### new_inode() - 申请 inode
 
 ```c
 struct m_inode * new_inode(int dev)

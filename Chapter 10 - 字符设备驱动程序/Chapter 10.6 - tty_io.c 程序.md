@@ -141,7 +141,7 @@ struct tty_queue * table_list[] = {
 };
 ```
 
-#### 改变前台控制台函数 change_console()
+#### change_console() - 改变前台控制台函数
 
 ```c
 void change_console(unsigned int new_console)
@@ -154,7 +154,7 @@ void change_console(unsigned int new_console)
 }
 ```
 
-#### 若队列缓冲区空，让进程进入可中断睡眠状态 - sleep_if_empty()
+#### sleep_if_empty() - 若队列缓冲区空，让进程进入可中断睡眠状态
 
 进程在取缓冲区中的字符之前，需要调用此函数加以验证
 
@@ -174,7 +174,7 @@ static void sleep_if_empty(struct tty_queue * queue)
 }
 ```
 
-#### 若队列缓冲区满，让进程进入可中断睡眠状态 - sleep_if_full()
+#### sleep_if_full() - 若队列缓冲区满，让进程进入可中断睡眠状态
 
 进程在往缓冲区写字符之前，需要调用此函数加以验证
 
@@ -196,7 +196,7 @@ static void sleep_if_full(struct tty_queue * queue)
 }
 ```
 
-#### 行规则函数 copy_to_cooked()
+#### copy_to_cooked() - 行规则函数
 
 根据终端 termios 结构体中设置的各种标志
 
@@ -351,7 +351,7 @@ void copy_to_cooked(struct tty_struct * tty)
 }
 ```
 
-#### 向使用终端的进程组中的所有进程发送信号 tty_signal()
+#### tty_signal() - 向使用终端的进程组中的所有进程发送信号
 
 ```c
 int tty_signal(int sig, struct tty_struct *tty)
@@ -372,7 +372,7 @@ int tty_signal(int sig, struct tty_struct *tty)
 }
 ```
 
-#### tty 读函数 tty_read()
+#### tty_read() - tty 读函数
 
 从终端的 __辅助队列__ 中读取指定数量的字符，放到用户缓冲区中
 
@@ -499,7 +499,7 @@ int tty_read(unsigned channel, char * buf, int nr)
 }
 ```
 
-#### tty 写函数 tty_write()
+#### tty_write() - tty 写函数
 
 把用户缓冲区中的字符放入 tty 写队列缓冲区中
 
@@ -565,7 +565,7 @@ int tty_write(unsigned channel, char *buf, int nr)
 }
 ```
 
-#### tty 中断处理的调用函数 do_tty_interrupt()
+#### do_tty_interrupt() - tty 中断处理的调用函数
 
 在 __串口读字符中断__ 和 __键盘中断__ 的处理函数中被调用
 
@@ -580,7 +580,7 @@ void do_tty_interrupt(int tty)
 }
 ```
 
-#### tty 终端初始化函数 tty_init()
+#### tty_init() - tty 终端初始化函数
 
 初始化所有的终端缓冲队列
 

@@ -79,7 +79,7 @@ __asm__("bt %2,%3;setb %%al":"=a"(__res):"a"(0),"r"(bitnr),"m"(*addr)); \
 __res; })
 ```
 
-#### 锁定超级块 - lock_super()
+#### lock_super() - 锁定超级块
 
 若超级块被锁定，则将当前任务置为不可中断的等待状态
 
@@ -96,7 +96,7 @@ static void lock_super(struct super_block * sb)
 }
 ```
 
-#### 对指定超级块解锁 - free_super()
+#### free_super() - 对指定超级块解锁
 
 ```c
 static void free_super(struct super_block * sb)
@@ -108,7 +108,7 @@ static void free_super(struct super_block * sb)
 }
 ```
 
-#### 睡眠等待超级块解锁 - wait_on_super()
+#### wait_on_super() - 睡眠等待超级块解锁
 
 ```c
 static void wait_on_super(struct super_block * sb)
@@ -120,7 +120,7 @@ static void wait_on_super(struct super_block * sb)
 }
 ```
 
-#### 取指定设备的超级块 - get_super()
+#### get_super() - 取指定设备的超级块
 
 在内存的超级块表中搜索指定设备 dev 的超级块结构体
 
@@ -146,7 +146,7 @@ struct super_block * get_super(int dev)
 }
 ```
 
-#### 放回指定设备的超级块 - put_super()
+#### put_super() - 放回指定设备的超级块
 
 释放设备使用的超级块数组项 - `s_dev` 置为 0
 
@@ -185,7 +185,7 @@ void put_super(int dev)
 }
 ```
 
-#### 读取指定设备的超级块 - read_super()
+#### read_super() - 读取指定设备的超级块
 
 如果设备 dev 上的文件系统超级块已经在超级块表中，则直接返回超级块项的指针
 
@@ -281,7 +281,7 @@ static struct super_block * read_super(int dev)
 }
 ```
 
-#### 系统调用 - 卸载文件系统 - sys_umount()
+#### sys_umount() - 系统调用 - 卸载文件系统
 
 根据块设备文件名，找到对应的 inode，从而获得其设备号
 
@@ -338,7 +338,7 @@ int sys_umount(char * dev_name)
 }
 ```
 
-#### 系统调用 - 挂载文件系统 - sys_mount()
+#### sys_mount() - 系统调用 - 挂载文件系统
 
 ```c
 int sys_mount(char * dev_name, char * dir_name, int rw_flag)
@@ -399,7 +399,7 @@ int sys_mount(char * dev_name, char * dir_name, int rw_flag)
 }
 ```
 
-#### 挂载根文件系统 - mount_root()
+#### mount_root() - 挂载根文件系统
 
 在系统初始化时被调用
 

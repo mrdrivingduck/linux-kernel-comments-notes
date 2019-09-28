@@ -213,7 +213,7 @@ static struct task_struct * buffer_wait = NULL; // 空闲缓冲块等待队列
 int NR_BUFFERS = 0; // 系统中含有的缓冲区个数
 ```
 
-#### 等待指定缓冲区解锁 - wait_on_buffer()
+#### wait_on_buffer() - 等待指定缓冲区解锁
 
 如果指定的缓冲块已经上锁
 
@@ -239,7 +239,7 @@ static inline void wait_on_buffer(struct buffer_head * bh)
 }
 ```
 
-#### 同步设备和高速缓冲中的数据 - sys_sync()
+#### sys_sync() - 同步设备和高速缓冲中的数据
 
 首先调用 inode 同步函数，将内存中所有修改过的 inode 写入高速缓冲
 
@@ -264,7 +264,7 @@ int sys_sync(void)
 }
 ```
 
-#### 对指定设备执行高速缓冲数据与设备上数据的同步操作 - sync_dev()
+#### sync_dev() - 对指定设备执行高速缓冲数据与设备上数据的同步操作
 
 先搜索所有的高速缓冲块
 
@@ -305,7 +305,7 @@ int sync_dev(int dev)
 }
 ```
 
-#### 使指定设备在高速缓冲区中的数据无效 - invalidate_buffers()
+#### invalidate_buffers() - 使指定设备在高速缓冲区中的数据无效
 
 对指定设备的缓冲块复位 `b_uptodate` 和 `b_dirt` 标志
 
@@ -333,7 +333,7 @@ void inline invalidate_buffers(int dev)
 #define hash(dev, block) hash_table[_hashfn(dev, block)]
 ```
 
-#### 从 hash 队列和空闲链表中移走缓冲块 - remove_from_queues()
+#### remove_from_queues() - 从 hash 队列和空闲链表中移走缓冲块
 
 ```c
 static inline void remove_from_queues(struct buffer_head * bh)
@@ -360,7 +360,7 @@ static inline void remove_from_queues(struct buffer_head * bh)
 }
 ```
 
-#### 将缓冲块插入空闲链表尾部，同时放入 hash 队列中 - insert_into_queues()
+#### insert_into_queues() - 将缓冲块插入空闲链表尾部，同时放入 hash 队列中
 
 ```c
 static inline void insert_into_queues(struct buffer_head * bh)
@@ -383,7 +383,7 @@ static inline void insert_into_queues(struct buffer_head * bh)
 }
 ```
 
-#### 利用 hash 表在高速缓冲中寻找给定设备和指定块号的缓冲块 - find_buffer()
+#### find_buffer() - 利用 hash 表在高速缓冲中寻找给定设备和指定块号的缓冲块
 
 ```c
 static struct buffer_head * find_buffer(int dev, int block)
@@ -397,7 +397,7 @@ static struct buffer_head * find_buffer(int dev, int block)
 }
 ```
 
-#### 利用 hash 表寻找指定缓冲块 - get_hash_table()
+#### get_hash_table() - 利用 hash 表寻找指定缓冲块
 
 若找到，则对缓冲块上锁，并返回块的头指针
 
@@ -421,7 +421,7 @@ struct buffer_head * get_hash_table(int dev, int block)
 }
 ```
 
-#### 取高速缓冲中指定的缓冲块 - getblk()
+#### getblk() - 取高速缓冲中指定的缓冲块
 
 检查指定设备号和块号的缓冲块是否已在高速缓冲中
 
@@ -505,7 +505,7 @@ repeat:
 }
 ```
 
-#### 释放指定缓冲块 - brelse()
+#### brelse() - 释放指定缓冲块
 
 等待缓冲块解锁，然后将引用计数递减，最后唤醒等待空闲缓冲块的进程
 
@@ -521,7 +521,7 @@ void brelse(struct buffer_head * buf)
 }
 ```
 
-#### 读取指定数据块，并返回含有数据的缓冲区 - bread()
+#### bread() - 读取指定数据块，并返回含有数据的缓冲区
 
 根据设备号和数据块号
 
@@ -553,7 +553,7 @@ struct buffer_head * bread(int dev, int block)
 }
 ```
 
-#### 一次读取四个缓冲块 - bread_page()
+#### bread_page() - 一次读取四个缓冲块
 
 同时读取四块可以获得速度上的好处
 
@@ -599,7 +599,7 @@ void bread_page(unsigned long address, int dev, int b[4])
 }
 ```
 
-#### 从指定设备读取指定的一些块 - breada()
+#### breada() - 从指定设备读取指定的一些块
 
 函数参数个数可变
 
@@ -640,7 +640,7 @@ struct buffer_head * breada(int dev, int first, ...)
 }
 ```
 
-#### 缓冲区初始化函数 - buffer_init()
+#### buffer_init() - 缓冲区初始化函数
 
 从缓冲区头和尾分别初始化 buffer_head 和对应的数据块
 

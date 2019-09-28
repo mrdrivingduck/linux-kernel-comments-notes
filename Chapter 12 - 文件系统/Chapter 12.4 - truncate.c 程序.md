@@ -24,7 +24,7 @@ Nanjing, Jiangsu, China
 
 ### 12.4.2 代码注释
 
-#### 释放所有的一次间接块 (内部函数) - free_ind()
+#### free_ind() - 释放所有的一次间接块 (内部函数)
 
 ```c
 static int free_ind(int dev, int block)
@@ -60,7 +60,7 @@ static int free_ind(int dev, int block)
 }
 ```
 
-#### 释放所有的二次间接块 (内部函数) - free_dind()
+#### free_dind() - 释放所有的二次间接块 (内部函数)
 
 ```c
 static int free_dind(int dev, int block)
@@ -93,7 +93,7 @@ static int free_dind(int dev, int block)
 }
 ```
 
-#### 截断文件数据函数 - truncate()
+#### truncate() - 截断文件数据函数
 
 ```c
 void truncate(struct m_inode * inode)

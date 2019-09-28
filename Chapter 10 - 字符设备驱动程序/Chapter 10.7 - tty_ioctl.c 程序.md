@@ -27,7 +27,7 @@ Ningbo, Zhejiang, China
 
 ### 10.7.2 代码注释
 
-#### 修改传输波特率 change_speed()
+#### change_speed() - 修改传输波特率
 
 首先定义了串行端口使用的 __波特率因子数组__
 
@@ -67,7 +67,7 @@ static void change_speed(struct tty_struct * tty)
 }
 ```
 
-#### 刷新 tty 缓冲队列 flush()
+#### flush() - 刷新 tty 缓冲队列
 
 令缓冲队列的头指针等于尾指针，从而清空缓冲区
 
@@ -80,7 +80,7 @@ static void flush(struct tty_queue * queue)
 }
 ```
 
-#### 读取/设置终端 termios 结构信息 get_termios() / set_termios()
+#### get_termios() / set_termios() - 读取/设置终端 termios 结构信息
 
 ```c
 static int get_termios(struct tty_struct * tty, struct termios * termios)
@@ -114,7 +114,7 @@ static int set_termios(struct tty_struct * tty, struct termios * termios, int ch
 }
 ```
 
-#### 读取/设置终端 termio 结构信息 get_termio() / set_termios()
+#### get_termio() / set_termios() - 读取/设置终端 termio 结构信息
 
 termio 结构与 termios 基本相同
 
@@ -173,7 +173,7 @@ static int set_termio(struct tty_struct * tty, struct termio * termio, int chann
 }
 ```
 
-#### tty 终端设备输入输出控制函数 tty_ioctl()
+#### tty_ioctl() - tty 终端设备输入输出控制函数
 
 > 似乎与标准的 `ioctl()` 函数的参数相同
 >

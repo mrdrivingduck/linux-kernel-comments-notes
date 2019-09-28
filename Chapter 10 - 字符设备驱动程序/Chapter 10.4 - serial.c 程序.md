@@ -31,7 +31,7 @@ Ningbo, Zhejiang, China
 
 ### 10.4.2 代码注释
 
-#### 串行端口初始化 - init()
+#### init() - 串行端口初始化
 
 设置指定串行端口的波特率
 
@@ -52,7 +52,7 @@ static void init(int port)
 }
 ```
 
-#### 初始化串行中断程序和串行接口 - rs_init()
+#### rs_init() - 初始化串行中断程序和串行接口
 
 ```c
 void rs_init(void)
@@ -65,7 +65,7 @@ void rs_init(void)
 }
 ```
 
-#### 串行接口写函数 - rs_write()
+#### rs_write() - 串行接口写函数
 
 该函数在 `tty_write()` 已将数据放入写缓冲队列后被调用
 

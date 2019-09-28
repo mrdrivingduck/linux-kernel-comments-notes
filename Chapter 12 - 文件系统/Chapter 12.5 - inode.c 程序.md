@@ -100,7 +100,7 @@ struct m_inode {
 struct m_inode inode_table[NR_INODE] = { { 0, }, }; // 32 项
 ```
 
-#### 等待 inode 可用 - wait_on_inode()
+#### wait_on_inode() - 等待 inode 可用
 
 ```c
 static inline void wait_on_buffer(struct m_inode * inode)
@@ -112,7 +112,7 @@ static inline void wait_on_buffer(struct m_inode * inode)
 }
 ```
 
-#### 对 inode 上锁 - lock_inode()
+#### lock_inode() - 对 inode 上锁
 
 ```c
 static inline void lock_inode(struct m_inode * inode)
@@ -125,7 +125,7 @@ static inline void lock_inode(struct m_inode * inode)
 }
 ```
 
-#### 对 inode 解锁 - unlock_inode()
+#### unlock_inode() - 对 inode 解锁
 
 ```c
 static inline void unlock_inode(struct m_inode * inode)
@@ -135,7 +135,7 @@ static inline void unlock_inode(struct m_inode * inode)
 }
 ```
 
-#### 释放设备 dev 在内存 inode 表中的所有 inode
+#### invalidate_inodes() - 释放设备 dev 在内存 inode 表中的所有 inode
 
 ```c
 void invalidate_inodes(int dev)
@@ -156,7 +156,7 @@ void invalidate_inodes(int dev)
 }
 ```
 
-#### 同步 inode - sync_inodes()
+#### sync_inodes() - 同步 inode
 
 将内存 inode 表中所有的 inode 与设备上的 inode 作同步操作
 
@@ -177,7 +177,7 @@ void sync_inodes(void)
 }
 ```
 
-#### 文件数据块与盘块的映射 - _bmap()
+#### _bmap() - 文件数据块与盘块的映射
 
 将指定的文件数据块对应到设备的逻辑块上，并返回逻辑块号
 
@@ -284,7 +284,7 @@ static int _bmap(struct m_inode * inode, int block, int create)
 }
 ```
 
-#### 取文件数据块在设备上的对应逻辑块号 - bmap()
+#### bmap() - 取文件数据块在设备上的对应逻辑块号
 
 ```c
 int bmap(struct m_inode * inode, int block)
@@ -293,7 +293,7 @@ int bmap(struct m_inode * inode, int block)
 }
 ```
 
-#### 取文件数据块在设备上对应的逻辑块号，若不存在就创建一块 - create_block()
+#### create_block() - 取文件数据块在设备上对应的逻辑块号，若不存在就创建一块
 
 ```c
 int create_block(struct m_inode * inode, int block)
@@ -302,7 +302,7 @@ int create_block(struct m_inode * inode, int block)
 }
 ```
 
-#### 放回一个 inode - iput()
+#### iput() - 放回一个 inode
 
 将 inode 的引用计数递减
 
@@ -368,7 +368,7 @@ repeat:
 }
 ```
 
-#### 从 inode 表中获取一个空闲 inode 项 - get_empty_inode()
+#### get_empty_inode() - 从 inode 表中获取一个空闲 inode 项
 
 寻找引用计数 count 为 0 的 inode，将其写盘后清零
 
@@ -413,7 +413,7 @@ struct m_inode * get_empty_inode(void)
 }
 ```
 
-#### 获取管道 inode - get_pipe_inode()
+#### get_pipe_inode() - 获取管道 inode
 
 扫描 inode 表，取得一个空闲 inode
 
@@ -440,7 +440,7 @@ struct m_inode * get_pipe_inode(void)
 }
 ```
 
-#### 取得一个 inode - iget()
+#### iget() - 取得一个 inode
 
 从设备读取指定编号的 inode 到内存 inode 表中
 
@@ -505,7 +505,7 @@ struct m_inode * iget(int dev, int nr)
 }
 ```
 
-#### 读取指定的 inode 信息 - read_inode()
+#### read_inode() - 读取指定的 inode 信息
 
 从设备上读取含有指定 inode 信息的盘块，读入缓冲区
 
@@ -546,7 +546,7 @@ static void read_inode(struct m_inode * inode)
 }
 ```
 
-#### 将 inode 写入缓冲区中 - write_inode()
+#### write_inode() - 将 inode 写入缓冲区中
 
 ```c
 static void write_inode(struct m_inode * inode)
