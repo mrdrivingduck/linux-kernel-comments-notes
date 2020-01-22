@@ -88,7 +88,7 @@ int sys_dup2(unsigned int oldfd, unsigned int newfd)
 
 #### sys_dup() - 复制文件句柄系统调用
 
-返回的新句柄时当前最小的未用句柄
+返回的新句柄是当前最小的未用句柄
 
 ```c
 int sys_dup(unsigned int fildes)
