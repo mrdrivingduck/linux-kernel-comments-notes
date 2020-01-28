@@ -15,3 +15,9 @@ Official - http://www.oldlinux.org/
 
 ---
 
+## License
+
+Copyright © 2019, Jingtang Zhang. ([MIT License](LICENSE))
+
+---
+
