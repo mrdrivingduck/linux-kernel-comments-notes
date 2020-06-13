@@ -12,21 +12,17 @@ Nanjing, Jiangsu, China
 
 ### 12.17.1 功能描述
 
-实现了文件控制系统调用 `fcntl()`
-
-和两个文件句柄 (描述符) 复制系统调用 `dup()` 和 `dup2()`
+实现了文件控制系统调用 `fcntl()` 和两个文件句柄 (描述符) 复制系统调用 `dup()` 和 `dup2()`。
 
 * `dup2()` 指定了新句柄的最小数值
 * `dup()` 指定了当前值最小的未用句柄
 * `fcntl()` 用于修改已打开的文件的状态或复制句柄
 
-`dup()` 和 `dup2()` 返回的文件句柄与被复制句柄将 __共用同一个文件表项__
+`dup()` 和 `dup2()` 返回的文件句柄与被复制句柄将 **共用同一个文件表项**。
 
 ![12-35](../img/12-35.png)
 
-对于使用 `dup()` 和 `dup2()` 函数新建的句柄，`close_on_exec` 标志会被清除
-
-* 运行 `exec()` 类系统调用不会关闭 `dup()` 建立的文件句柄
+对于使用 `dup()` 和 `dup2()` 函数新建的句柄，`close_on_exec` 标志会被清除。运行 `exec()` 类系统调用不会关闭 `dup()` 建立的文件句柄。
 
 关于文件控制，有如下命令：
 
@@ -44,7 +40,7 @@ Nanjing, Jiangsu, China
 
 #### dupfd() - 复制文件句柄 (描述符)
 
-arg 指定了新文件句柄的最小值
+arg 指定了新文件句柄的最小值。
 
 ```c
 static int dupfd(unsigned int fd, unsigned int arg)
@@ -74,9 +70,7 @@ static int dupfd(unsigned int fd, unsigned int arg)
 
 #### sys_dup2() - 复制文件句柄系统调用
 
-复制指定的 oldfd，新文件句柄的值为 newfd
-
-如果 newfd 已打开，则先关闭
+复制指定的 oldfd，新文件句柄的值为 newfd。如果 newfd 已打开，则先关闭。
 
 ```c
 int sys_dup2(unsigned int oldfd, unsigned int newfd)
@@ -88,7 +82,7 @@ int sys_dup2(unsigned int oldfd, unsigned int newfd)
 
 #### sys_dup() - 复制文件句柄系统调用
 
-返回的新句柄是当前最小的未用句柄
+返回的新句柄是当前最小的未用句柄。
 
 ```c
 int sys_dup(unsigned int fildes)

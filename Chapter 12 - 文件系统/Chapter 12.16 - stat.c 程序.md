@@ -12,11 +12,7 @@ Nanjing, Jiangsu, China
 
 ### 12.16.1 功能描述
 
-实现获取文件状态信息的系统调用 `stat()` 和 `fstat()`
-
-并将文件信息以 `stat` 结构体的形式返回到用户缓冲区中
-
-`stat` 结构体中的所有字段信息都能在文件的 inode 中获得
+实现获取文件状态信息的系统调用 `stat()` 和 `fstat()`，并将文件信息以 `stat` 结构体的形式返回到用户缓冲区中。`stat` 结构体中的所有字段信息都能在文件的 inode 中获得。
 
 * `stat()` 利用文件名获取信息
 * `fstat()` 使用文件句柄 (描述符) 来取得信息
@@ -104,7 +100,7 @@ int sys_fstat(unsigned int fd, struct stat * statbuf)
 
 #### sys_lstat() - 符号链接文件状态系统调用
 
-只取符号链接文件本身的状态，不跟随链接文件的状态
+只取符号链接文件本身的状态，不跟随链接文件的状态。
 
 ```c
 int sys_lstat(char * filename, struct stat * statbuf)
@@ -121,11 +117,7 @@ int sys_lstat(char * filename, struct stat * statbuf)
 
 #### sys_readlink() - 读取符号链接系统调用
 
-读取符号链接文件中的内容
-
-放到指定长度的用户缓冲区中
-
-(若缓冲区太小，就会截断符号链接的内容)
+读取符号链接文件中的内容，放到指定长度的用户缓冲区中 (若缓冲区太小，就会截断符号链接的内容)。
 
 ```c
 int sys_readlink(const char * path, char * buf, int bufsiz)

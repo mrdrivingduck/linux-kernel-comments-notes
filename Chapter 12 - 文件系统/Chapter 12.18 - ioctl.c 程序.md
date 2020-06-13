@@ -12,11 +12,7 @@ Nanjing, Jiangsu, China
 
 ### 12.18.1 功能描述
 
-实现了 I/O 控制系统调用 `ioctl()`
-
-可看作是各个具体设备驱动程序的接口函数
-
-该函数将调用指定的文件句柄对应设备的驱动程序
+实现了 I/O 控制系统调用 `ioctl()`。可看作是各个具体设备驱动程序的接口函数，该函数将调用指定的文件句柄对应设备的驱动程序。
 
 ### 12.18.2 代码注释
 
@@ -71,9 +67,7 @@ int sys_ioctl(unsigned int fd, unsigned int cmd, unsigned long arg)
 typedef int (*ioctl_ptr) (int dev, int cmd, int arg);
 ```
 
-即，定义了函数指针的参数列表
-
-在 `ioctl_table` 表中找到对应设备的函数指针，传入参数并调用
+即，定义了函数指针的参数列表。在 `ioctl_table` 表中找到对应设备的函数指针，传入参数并调用。
 
 ---
 
