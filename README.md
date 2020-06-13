@@ -9,7 +9,7 @@ Created by : Mr Dk.
 
 ## About
 
-Notes of studying _A Heavily Commemted Linux Kernel Source Code_ by _Jiong Zhao_
+Notes of studying *A Heavily Commemted Linux Kernel Source Code* by *Jiong Zhao*
 
 Official - http://www.oldlinux.org/
 
