@@ -22,9 +22,7 @@ Nanjing, Jiangsu, China
 * 把 inode 引用计数值减 1
 * 若 inode 的链接计数为 0，则释放 inode 占用的所有磁盘逻辑块
 
-在某时刻，进程不需要持续使用一个 inode 时就应当调用 `iput()` 函数
-
-内核代码通常调用 `iput()` 的时机：
+在某时刻，进程不需要持续使用一个 inode 时就应当调用 `iput()` 函数。内核代码通常调用 `iput()` 的时机：
 
 * inode 的引用计数字段增 1
 * 调用了 `namei()`、`dir_namei()` 或 `open_namei()` 函数
@@ -32,21 +30,7 @@ Nanjing, Jiangsu, China
 * 关闭文件，且没有其它进程使用该文件
 * 卸载文件系统
 
-`bmap()` 函数
-
-用于把文件数据块映射到对应的盘块上
-
-参数为 inode 指针和文件中的数据块号
-
-在对应文件数据块不存在的情况下
-
-根据 create 标志判断是否需要在盘上建立盘块
-
-并返回在对应设备上的盘块号
-
-函数主要对 inode 中的 `i_zone[]` 进行处理
-
-根据 `i_zone[]` 中设置的盘块号，设置逻辑块 bitmap 的占用情况
+`bmap()` 函数用于把文件数据块映射到对应的盘块上，参数为 inode 指针和文件中的数据块号。在对应文件数据块不存在的情况下，根据 create 标志判断是否需要在盘上建立盘块，并返回在对应设备上的盘块号。函数主要对 inode 中的 `i_zone[]` 进行处理，根据 `i_zone[]` 中设置的盘块号，设置逻辑块 bitmap 的占用情况。
 
 ### 12.5.2 代码注释
 
@@ -66,7 +50,7 @@ struct d_inode {
 };
 ```
 
-内存中的 inode - 其中前 7 项与 d_node 完全一样
+内存中的 inode - 其中前 7 项与 d_node 完全一样。
 
 ```c
 struct m_inode {
@@ -158,7 +142,7 @@ void invalidate_inodes(int dev)
 
 #### sync_inodes() - 同步 inode
 
-将内存 inode 表中所有的 inode 与设备上的 inode 作同步操作
+将内存 inode 表中所有的 inode 与设备上的 inode 作同步操作。
 
 ```c
 void sync_inodes(void)
@@ -179,7 +163,7 @@ void sync_inodes(void)
 
 #### _bmap() - 文件数据块与盘块的映射
 
-将指定的文件数据块对应到设备的逻辑块上，并返回逻辑块号
+将指定的文件数据块对应到设备的逻辑块上，并返回逻辑块号：
 
 * 如果创建标志置位，那么对应逻辑块不存在时就申请新逻辑块
 * 返回文件数据块对应在设备上的逻辑块号
@@ -304,7 +288,7 @@ int create_block(struct m_inode * inode, int block)
 
 #### iput() - 放回一个 inode
 
-将 inode 的引用计数递减
+将 inode 的引用计数递减。
 
 * 管道 inode - 唤醒等待的进程
 * 块设备 inode - 刷新设备
@@ -370,9 +354,7 @@ repeat:
 
 #### get_empty_inode() - 从 inode 表中获取一个空闲 inode 项
 
-寻找引用计数 count 为 0 的 inode，将其写盘后清零
-
-引用计数被置 1
+寻找引用计数 count 为 0 的 inode，将其写盘后清零，引用计数被置 1。
 
 ```c
 struct m_inode * get_empty_inode(void)
@@ -415,11 +397,7 @@ struct m_inode * get_empty_inode(void)
 
 #### get_pipe_inode() - 获取管道 inode
 
-扫描 inode 表，取得一个空闲 inode
-
-取得一页空闲内存供管道使用
-
-将得到 inode 的引用计数置位 2 (Reader + Writer)
+扫描 inode 表，取得一个空闲 inode。取得一页空闲内存供管道使用，将得到 inode 的引用计数置位 2 (Reader + Writer)。
 
 ```c
 struct m_inode * get_pipe_inode(void)
@@ -442,9 +420,7 @@ struct m_inode * get_pipe_inode(void)
 
 #### iget() - 取得一个 inode
 
-从设备读取指定编号的 inode 到内存 inode 表中
-
-返回该 inode 的指针
+从设备读取指定编号的 inode 到内存 inode 表中，返回该 inode 的指针。
 
 ```c
 struct m_inode * iget(int dev, int nr)
@@ -507,9 +483,7 @@ struct m_inode * iget(int dev, int nr)
 
 #### read_inode() - 读取指定的 inode 信息
 
-从设备上读取含有指定 inode 信息的盘块，读入缓冲区
-
-从缓冲区复制到指定的 inode 结构中
+从设备上读取含有指定 inode 信息的盘块，读入缓冲区。从缓冲区复制到指定的 inode 结构中。
 
 ```c
 static void read_inode(struct m_inode * inode)
@@ -582,29 +556,11 @@ static void write_inode(struct m_inode * inode)
 
 ## Summary
 
-之前一直没弄清楚的是磁盘、缓冲区、内存三个位置的数据结构之间的关系
+之前一直没弄清楚的是磁盘、缓冲区、内存三个位置的数据结构之间的关系，这三个地方的数据是独立的。
 
-这三个地方的数据是独立的
+inode 表位于内存中，这个源代码文件中，基本上是对内存中的 inode 表进行操作；而 inode 实际上位于磁盘。在读取 inode 时，需要先将 inode 所在的磁盘逻辑块读进缓冲区，然后再从缓冲区中将数据拷贝到内存的 inode 表中。
 
-inode 表位于内存中
-
-这个源代码文件中，基本上是对内存中的 inode 表进行操作
-
-而 inode 实际上位于磁盘
-
-在读取 inode 时，需要先将 inode 所在的磁盘逻辑块读进缓冲区
-
-然后再从缓冲区中将数据拷贝到内存的 inode 表中
-
-而写入 inode 时，需要将内存 inode 表中的数据拷贝到对应的缓冲区中
-
-再从缓冲区同步到磁盘上
-
-对于内存中的 inode 来说，写入 inode 时
-
-只需要同步到缓冲区中，即可认为同步完成
-
-从缓冲区到磁盘的同步由 __缓冲区管理机制__ 负责完成
+而写入 inode 时，需要将内存 inode 表中的数据拷贝到对应的缓冲区中，再从缓冲区同步到磁盘上。对于内存中的 inode 来说，写入 inode 时，只需要同步到缓冲区中，即可认为同步完成。从缓冲区到磁盘的同步由 **缓冲区管理机制** 负责完成。
 
 ---
 

@@ -12,9 +12,7 @@ Nanjing, Jiangsu, China
 
 ### 12.12.1 功能描述
 
-包含各个字符设备文件的访问函数
-
-另还有一个设备读写函数指针表
+包含各个字符设备文件的访问函数，另还有一个设备读写函数指针表。
 
 ### 12.12.2 代码注释
 
@@ -31,7 +29,7 @@ static int rw_ttyx(int rw, unsigned minor, char * buf, int count, off_t * pos)
 
 #### rw_tty() - 控制台终端读写操作函数
 
-基本同上，但需要对进程是否有 __控制终端__ 进行检测
+基本同上，但需要对进程是否有 **控制终端** 进行检测。
 
 ```c
 static int rw_tty(int rw, unsigned minor, char * buf, int count, off_t * pos)
@@ -100,9 +98,7 @@ static int rw_memory(int rw, unsigned minor, char * buf, int count, off_t * pos)
 
 #### rw_char() - 字符设备读写操作函数
 
-根据设备的主设备号，分别调用对应的 __字符设备读写函数指针表__ 中的函数
-
-字符设备读写函数指针的定义：
+根据设备的主设备号，分别调用对应的 **字符设备读写函数指针表** 中的函数。字符设备读写函数指针的定义：
 
 ```c
 typedef (*crw_ptr) (int rw, unsigned minor, char * buf, int count, off_t * pos);
@@ -150,11 +146,7 @@ int rw_char(int rw, int dev, char * buf, int count, off_t * pos)
 
 ## Summary
 
-从层次上来看，在对字符设备的上层调用中，需要提供设备号
-
-接口函数根据设备的 __主设备号__，找到对应设备的读写函数指针
-
-然后将 __子设备号__ 传入各类设备的读写子函数中，在读写子函数中进入不同的分支逻辑
+从层次上来看，在对字符设备的上层调用中，需要提供设备号。接口函数根据设备的 **主设备号**，找到对应设备的读写函数指针，然后将 **子设备号** 传入各类设备的读写子函数中，在读写子函数中进入不同的分支逻辑。
 
 ---
 

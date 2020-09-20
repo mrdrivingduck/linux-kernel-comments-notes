@@ -12,15 +12,13 @@ Nanjing, Jiangsu, China
 
 ### 12.6.1 功能描述
 
-对文件系统中的超级块进行操作的函数
-
-此外还有文件系统加载 / 卸载的系统调用
+对文件系统中的超级块进行操作的函数。此外还有文件系统加载 (mount) / 卸载 (unmount) 的系统调用。
 
 ### 12.6.2 代码注释
 
 #### Super block 的数据结构定义
 
-磁盘上的 super block
+磁盘上的 super block：
 
 ```c
 struct d_super_block {
@@ -35,9 +33,7 @@ struct d_super_block {
 };
 ```
 
-内存中的 super block
-
-* 前面的部分和磁盘中的 super block 完全相同
+内存中的 super block：(前面的部分和磁盘中的 super block 完全相同)
 
 ```c
 struct super_block {
@@ -81,9 +77,7 @@ __res; })
 
 #### lock_super() - 锁定超级块
 
-若超级块被锁定，则将当前任务置为不可中断的等待状态
-
-直到超级块解锁，任务被明确唤醒
+若超级块被锁定，则将当前任务置为不可中断的等待状态，直到超级块解锁，任务被明确唤醒。
 
 ```c
 static void lock_super(struct super_block * sb)
@@ -122,7 +116,7 @@ static void wait_on_super(struct super_block * sb)
 
 #### get_super() - 取指定设备的超级块
 
-在内存的超级块表中搜索指定设备 dev 的超级块结构体
+在内存的超级块表中搜索指定设备 dev 的超级块结构体：
 
 ```c
 struct super_block * get_super(int dev)
@@ -148,11 +142,8 @@ struct super_block * get_super(int dev)
 
 #### put_super() - 放回指定设备的超级块
 
-释放设备使用的超级块数组项 - `s_dev` 置为 0
-
-释放设备的 inode bitmap 和逻辑块 bitmap 占用的高速缓冲
-
-如果超级块对应的是根文件系统，或其某个 inode 上已经安装了其它文件系统，则不能释放
+1. 释放设备使用的超级块数组项 - `s_dev` 置为 0
+2. 释放设备的 inode bitmap 和逻辑块 bitmap 占用的高速缓冲。如果超级块对应的是根文件系统，或其某个 inode 上已经安装了其它文件系统，则不能释放。
 
 ```c
 void put_super(int dev)
@@ -187,9 +178,8 @@ void put_super(int dev)
 
 #### read_super() - 读取指定设备的超级块
 
-如果设备 dev 上的文件系统超级块已经在超级块表中，则直接返回超级块项的指针
-
-否则从设备 dev 上读取超级块到缓冲区，再从缓冲区复制到超级块数组中
+1. 如果设备 dev 上的文件系统超级块已经在超级块表中，则直接返回超级块项的指针
+2. 否则从设备 dev 上读取超级块到缓冲区，再从缓冲区复制到超级块数组中：
 
 ```c
 static struct super_block * read_super(int dev)
@@ -283,11 +273,9 @@ static struct super_block * read_super(int dev)
 
 #### sys_umount() - 系统调用 - 卸载文件系统
 
-根据块设备文件名，找到对应的 inode，从而获得其设备号
-
-复位文件系统超级块的相应字段，释放 bitmap 占用的缓冲块
-
-最后执行高速缓冲与设备上的同步操作
+1. 根据块设备文件名，找到对应的 inode，从而获得其设备号
+2. 复位文件系统超级块的相应字段，释放 bitmap 占用的缓冲块
+3. 最后执行高速缓冲与设备上的同步操作
 
 ```c
 int sys_umount(char * dev_name)
@@ -401,13 +389,11 @@ int sys_mount(char * dev_name, char * dir_name, int rw_flag)
 
 #### mount_root() - 挂载根文件系统
 
-在系统初始化时被调用
+在系统初始化时被调用：
 
-初始化文件表 `file_table[]` 和超级块表
-
-读取根文件系统的超级块，并取得 root inode
-
-统计并显示根文件系统上的可用资源
+1. 初始化文件表 `file_table[]` 和超级块表
+2. 读取根文件系统的超级块，并取得 root inode
+3. 统计并显示根文件系统上的可用资源
 
 ```c
 void mount_root(void)
@@ -470,25 +456,9 @@ void mount_root(void)
 
 ## Summary
 
-关于文件系统的挂载
+关于文件系统的挂载：首先需要根据挂载的设备名，找到设备 inode，从而取得设备号 → 找到文件系统的超级块。然后根据挂载点的目录名，找到挂载点目录的 inode；挂载后，文件系统超级块将指向挂载点的 inode，而挂载点的 inode 中则被设定为已经挂载了文件系统。
 
-首先需要根据挂载的设备名，找到设备 inode，从而取得设备号 → 找到文件系统的超级块
-
-然后根据挂载点的目录名，找到挂载点目录的 inode
-
-挂载后，文件系统超级块将指向挂载点的 inode
-
-而挂载点的 inode 中则被设定为已经挂载了文件系统
-
-挂载根文件系统时
-
-根据根设备号得到根设备的超级块
-
-并且在初始化过程中确定了 root inode
-
-和 root inode
-
-将超级块设定为指向 root inode，也就是根目录，从而完成挂载
+挂载根文件系统时，根据根设备号得到根设备的超级块，并且在初始化过程中确定了 root inode。将超级块设定为指向 root inode，也就是根目录，从而完成挂载。
 
 ---
 

@@ -12,15 +12,9 @@ Nanjing, Jiangsu, China
 
 ### 12.7.1 功能描述
 
-主要实现根据目录名或文件名寻找对应 inode 的函数 `namei()`
+主要实现根据目录名或文件名寻找对应 inode 的函数 `namei()`，以及一些关于目录建立、删除等的操作函数和系统调用。
 
-以及一些关于目录建立、删除等的操作函数和系统调用
-
-MINIX 文件系统与传统 UNIX 文件系统的目录项结构相同
-
-文件名对应的目录项存储在目录 inode 对应的数据块中
-
-文件系统根目录下所有的文件名信息保存在指定 inode (1 号 inode) 的数据块中
+MINIX 文件系统与传统 UNIX 文件系统的目录项结构相同，文件名对应的目录项存储在目录 inode 对应的数据块中。文件系统根目录下所有的文件名信息保存在指定 inode (1 号 inode) 的数据块中。
 
 每个目录项的结构定义：
 
@@ -34,13 +28,7 @@ struct dir_entry {
 };
 ```
 
-文件的其它信息则被存放在编号为结构体中 `inode` 的 inode 中
-
-每个编号的 inode 都位于磁盘上的固定位置处
-
-打开文件时，根据给定的文件名
-
-从根目录 (1 号 inode) 或相对路径的 inode 开始查找
+文件的其它信息则被存放在编号为结构体中 `inode` 的 inode 中。每个编号的 inode 都位于磁盘上的固定位置处。打开文件时，根据给定的文件名，从根目录 (1 号 inode) 或相对路径的 inode 开始查找。
 
 ### 12.7.2 代码注释
 
@@ -68,12 +56,12 @@ static int permission(struct m_inode * inode, int mask)
 
 #### match() - 指定长度字符串比较函数
 
-相当于 `strncmp` 函数
+相当于 `strncmp` 函数：
 
 * 相同返回 1
 * 不同返回 0
 
-判断 len 长度的 name 是否与目录项 de 中的文件名相同
+判断 len 长度的 name 是否与目录项 de 中的文件名相同。
 
 ```c
 static int match(int len, const char * name, struct dir_entry * de)
@@ -105,27 +93,13 @@ static int match(int len, const char * name, struct dir_entry * de)
 
 #### find_entry() - 在指定目录中查找指定文件名的目录项
 
-返回含有对应目录项的高速缓冲区指针
-
-另外还返回该目录项指针 (该返回值是通过参数返回的)
-
-因为返回值只能有一个
+返回含有对应目录项的高速缓冲区指针，另外还返回该目录项指针 (该返回值是通过参数返回的)。因为返回值只能有一个
 
 > 代码中对于 `../` 的特殊处理，涉及到文件系统挂载的问题：
 >
 > ![mount](../img/mount.png)
 >
-> 挂载点位于 FS1 的目录 `/.../dir` 上
->
-> 通过其上一级目录的 inode1，找到该目录对应的 inode - inode2
->
-> inode2 中有一个挂载标志
->
-> 被挂载的 FS2 文件系统超级块中的 `s_imount` 指向被挂载的 inode2
->
-> 同时，FS2 中自己的 1 号 inode 作为 FS2 的根目录
->
-> 所以存在这样的问题：
+> 挂载点位于 FS1 的目录 `/.../dir` 上，通过其上一级目录的 inode1，找到该目录对应的 inode - inode2。inode2 中有一个挂载标志，被挂载的 FS2 文件系统超级块中的 `s_imount` 指向被挂载的 inode2。同时，FS2 中自己的 1 号 inode 作为 FS2 的根目录，所以存在这样的问题：
 >
 > 在 FS2 的根目录上使用 `../`，就需要退到 FS 1 的 inode2 中
 
@@ -332,15 +306,9 @@ static struct m_inode * follow_link(struct m_inode * dir, struct m_inode * inode
 
 #### get_dir() - 根据给定路径名进行搜索，直到到达最内层目录
 
-给定路径名和起始目录的 inode
+给定路径名和起始目录的 inode。
 
-> 啥叫最顶端目录？
->
-> `/usr/a/b/ccc.txt`
->
-> 返回的应该是 `/usr/a/b/` 目录的 inode
->
-> 即最内层目录的上一级目录的 inode
+> 啥叫最顶端目录？`/usr/a/b/ccc.txt`，返回的应该是 `/usr/a/b/` 目录的 inode，即最内层目录的上一级目录的 inode。
 
 ```c
 static struct m_inode * get_dir(const char * pathname, struct m_inode * inode)
@@ -400,11 +368,7 @@ static struct m_inode * get_dir(const char * pathname, struct m_inode * inode)
 
 #### dir_namei() - 返回指定目录名的 inode，以及最内层目录的名称
 
-> 根据我对代码的理解
->
-> 返回的是最内层目录的上一级目录的 inode
->
-> 以及最内层的目录或文件名 (即最后一个 `/` 右边的部分)
+> 根据我对代码的理解，返回的是最内层目录的上一级目录的 inode，以及最内层的目录或文件名 (即最后一个 `/` 右边的部分)。
 
 ```c
 static struct m_inode * dir_namei(const char * pathname, 
@@ -1160,22 +1124,12 @@ int sys_link(const char * oldname, const char * newname)
 
 ## Summary
 
-终于把这个最长的程序给过完了
-
-本程序的子函数主要用于 __inode 数据结构__ 和 __路径名__ 之间的关联
-
-关联成功后，对：
+终于把这个最长的程序给过完了。本程序的子函数主要用于 **inode 数据结构** 和 **路径名** 之间的关联。关联成功后，对：
 
 * 指定路径及其父目录的 inode 数据结构
 * inode 对应的数据块
 
-进行 CRUD 等操作
-
-并取得 inode 对应的逻辑块进行 CRUD 等
-
-后续的函数都是文件、目录和链接的系统调用实现
-
-全部借助于上述提及的子函数中的功能
+进行 CRUD 等操作，并取得 inode 对应的逻辑块进行 CRUD 等。后续的函数都是文件、目录和链接的系统调用实现，全部借助于上述提及的子函数中的功能。
 
 ---
 
