@@ -12,13 +12,7 @@ Ningbo, Zhejiang, China
 
 ### 8.3.1 功能描述
 
-实现了 asm.s 汇编程序中调用的 C 函数
-
-用于显示出错位置和出错号等调试信息
-
-其中的 `die()` 函数用于在中断处理中显示详细的出错信息
-
-而 `trap_init()` 函数则在之前的 `init/main.c` 中被调用，初始化硬件异常处理中断向量
+实现了 asm.s 汇编程序中调用的 C 函数，用于显示出错位置和出错号等调试信息。其中的 `die()` 函数用于在中断处理中显示详细的出错信息，而 `trap_init()` 函数则在之前的 `init/main.c` 中被调用，初始化硬件异常处理中断向量。
 
 ### 8.3.2 代码注释
 
@@ -28,9 +22,7 @@ Ningbo, Zhejiang, China
 * 取段 seg 中地址 addr 处的一个长字
 * 取 fs 段寄存器的值
 
-其中，定义了一个寄存器变量 `__res`
-
-* 将会被保存在一个寄存器中，以便于快速访问和操作
+其中，定义了一个寄存器变量 `__res`，将会被保存在一个寄存器中，以便于快速访问和操作。
 
 ```c
 // 取段 seg 中地址 addr 处的一个字节
@@ -266,12 +258,7 @@ void irq13(void);                       // INT 45
 void alignment_check(void);             // INT 46
 ```
 
-下面是内核初始化程序中调用的 `trap_init()` 函数
-
-* 其中用到了 `set_trap_gate()` 和 `set_system_gate()`
-* 都用到了 IDT 中的陷阱门
-* 前者设置的特权级为 0，后者为 3
-* 这两个函数是嵌入汇编程序 (`include/asm/system.h`)
+下面是内核初始化程序中调用的 `trap_init()` 函数，其中用到了 `set_trap_gate()` 和 `set_system_gate()`，都用到了 IDT 中的陷阱门：前者设置的特权级为 0，后者为 3。这两个函数是嵌入汇编程序 (`include/asm/system.h`)。
 
 ```c
 void trap_init(void)
@@ -312,6 +299,4 @@ void trap_init(void)
     set_trap_gate(39, &parallel_interrupt);
 }
 ```
-
----
 
