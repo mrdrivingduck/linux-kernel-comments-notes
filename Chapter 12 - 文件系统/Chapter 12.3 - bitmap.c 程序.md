@@ -14,20 +14,19 @@ Nanjing, Jiangsu, China
 
 对逻辑块和 inode 的 bitmap 进行 bit 位的占用 / 释放操作
 
-* `free_block()` - 释放指定设备 dev 上的逻辑块 block
-  * 在高速缓冲中查找，若此块已在高速缓冲中，则释放
-  * 计算逻辑块号，在逻辑块 bitmap 中将对应的 bit 位复位
-  * 在包含逻辑块 bitmap 的缓冲区中，设置该缓冲块的已修改标志
-* `new_block()` - 向设备 dev 申请一个逻辑块，返回逻辑块号
-  * 对 dev 的逻辑块 bitmap 进行搜索，寻找首个为 0 的 bit 位
-  * 置 1 占用该逻辑块，将包含该 bit 位的逻辑块 bitmap 所在缓冲块的已修改标志置位
-  * 在高速缓冲区中申请相应的缓冲块，将该缓冲块清零
-  * 设置缓冲块的已更新和已修改标志，释放该缓冲块
-* `free_inode()` - 释放指定的 inode
-  * 复位 inode bitmap 的对应 bit 位
-* `new_inode()` - 为设备 dev 建立一个新的 inode
-  * 从内存 inode 表中获取一个空闲表项
-  * 从 inode bitmap 中找到一个空闲的 inode
+- `free_block()`：释放指定设备 dev 上的逻辑块 block
+  - 在高速缓冲中查找，若此块已在高速缓冲中，则释放
+  - 计算逻辑块号，在逻辑块 bitmap 中将对应的 bit 位复位
+  - 在包含逻辑块 bitmap 的缓冲区中，设置该缓冲块的已修改标志
+- `new_block()`：向设备 dev 申请一个逻辑块，返回逻辑块号
+  - 对 dev 的逻辑块 bitmap 进行搜索，寻找首个为 0 的 bit 位
+  - 置 1 占用该逻辑块，将包含该 bit 位的逻辑块 bitmap 所在缓冲块的已修改标志置位
+  - 在高速缓冲区中申请相应的缓冲块，将该缓冲块清零
+  - 设置缓冲块的已更新和已修改标志，释放该缓冲块
+- `free_inode()`：释放指定的 inode，复位 inode bitmap 的对应 bit 位
+- `new_inode()`：为设备 dev 建立一个新的 inode
+  - 从内存 inode 表中获取一个空闲表项
+  - 从 inode bitmap 中找到一个空闲的 inode
 
 ### 12.3.2 代码注释
 
@@ -273,6 +272,4 @@ struct m_inode * new_inode(int dev)
 ## Summary
 
 程序是无法对磁盘上的文件系统进行 **直接操作** 的，必须要通过 **缓冲区管理程序** 进行。所以，如果要申请 inode 或逻辑块，就必须对在缓冲区中的 bitmap 映像进行操作，还要在缓冲区中分配新磁盘块的缓冲区并清零，再通过缓冲区同步机制写回磁盘。同样，在释放过程中，也要对缓冲区中的 bitmap 映像进行操作，还要清除缓冲区中已缓存的磁盘块。
-
----
 

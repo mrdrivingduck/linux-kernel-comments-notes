@@ -69,5 +69,3 @@ typedef int (*ioctl_ptr) (int dev, int cmd, int arg);
 
 即，定义了函数指针的参数列表。在 `ioctl_table` 表中找到对应设备的函数指针，传入参数并调用。
 
----
-

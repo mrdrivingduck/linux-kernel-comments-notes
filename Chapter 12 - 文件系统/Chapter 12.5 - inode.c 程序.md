@@ -14,21 +14,21 @@ Nanjing, Jiangsu, China
 
 `iget()` 函数
 
-* 从设备 dev 上读取指定结点号 nr 的 inode
-* 并把 inode 的引用计数字段值 `i_count` 增 1
+- 从设备 dev 上读取指定结点号 nr 的 inode
+- 并把 inode 的引用计数字段值 `i_count` 增 1
 
 `iput()` 函数
 
-* 把 inode 引用计数值减 1
-* 若 inode 的链接计数为 0，则释放 inode 占用的所有磁盘逻辑块
+- 把 inode 引用计数值减 1
+- 若 inode 的链接计数为 0，则释放 inode 占用的所有磁盘逻辑块
 
 在某时刻，进程不需要持续使用一个 inode 时就应当调用 `iput()` 函数。内核代码通常调用 `iput()` 的时机：
 
-* inode 的引用计数字段增 1
-* 调用了 `namei()`、`dir_namei()` 或 `open_namei()` 函数
-* 调用了 `iget()`、`new_inode()` 或 `get_empty_inode()` 函数
-* 关闭文件，且没有其它进程使用该文件
-* 卸载文件系统
+- inode 的引用计数字段增 1
+- 调用了 `namei()`、`dir_namei()` 或 `open_namei()` 函数
+- 调用了 `iget()`、`new_inode()` 或 `get_empty_inode()` 函数
+- 关闭文件，且没有其它进程使用该文件
+- 卸载文件系统
 
 `bmap()` 函数用于把文件数据块映射到对应的盘块上，参数为 inode 指针和文件中的数据块号。在对应文件数据块不存在的情况下，根据 create 标志判断是否需要在盘上建立盘块，并返回在对应设备上的盘块号。函数主要对 inode 中的 `i_zone[]` 进行处理，根据 `i_zone[]` 中设置的盘块号，设置逻辑块 bitmap 的占用情况。
 
@@ -165,8 +165,8 @@ void sync_inodes(void)
 
 将指定的文件数据块对应到设备的逻辑块上，并返回逻辑块号：
 
-* 如果创建标志置位，那么对应逻辑块不存在时就申请新逻辑块
-* 返回文件数据块对应在设备上的逻辑块号
+- 如果创建标志置位，那么对应逻辑块不存在时就申请新逻辑块
+- 返回文件数据块对应在设备上的逻辑块号
 
 ```c
 static int _bmap(struct m_inode * inode, int block, int create)
@@ -290,8 +290,8 @@ int create_block(struct m_inode * inode, int block)
 
 将 inode 的引用计数递减。
 
-* 管道 inode - 唤醒等待的进程
-* 块设备 inode - 刷新设备
+- 管道 inode：唤醒等待的进程
+- 块设备 inode：刷新设备
 
 ```c
 void iput(struct m_inode * inode)
@@ -561,6 +561,4 @@ static void write_inode(struct m_inode * inode)
 inode 表位于内存中，这个源代码文件中，基本上是对内存中的 inode 表进行操作；而 inode 实际上位于磁盘。在读取 inode 时，需要先将 inode 所在的磁盘逻辑块读进缓冲区，然后再从缓冲区中将数据拷贝到内存的 inode 表中。
 
 而写入 inode 时，需要将内存 inode 表中的数据拷贝到对应的缓冲区中，再从缓冲区同步到磁盘上。对于内存中的 inode 来说，写入 inode 时，只需要同步到缓冲区中，即可认为同步完成。从缓冲区到磁盘的同步由 **缓冲区管理机制** 负责完成。
-
----
 

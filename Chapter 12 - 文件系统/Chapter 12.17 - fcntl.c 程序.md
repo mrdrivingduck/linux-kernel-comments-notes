@@ -14,9 +14,9 @@ Nanjing, Jiangsu, China
 
 实现了文件控制系统调用 `fcntl()` 和两个文件句柄 (描述符) 复制系统调用 `dup()` 和 `dup2()`。
 
-* `dup2()` 指定了新句柄的最小数值
-* `dup()` 指定了当前值最小的未用句柄
-* `fcntl()` 用于修改已打开的文件的状态或复制句柄
+- `dup2()` 指定了新句柄的最小数值
+- `dup()` 指定了当前值最小的未用句柄
+- `fcntl()` 用于修改已打开的文件的状态或复制句柄
 
 `dup()` 和 `dup2()` 返回的文件句柄与被复制句柄将 **共用同一个文件表项**。
 
@@ -26,15 +26,15 @@ Nanjing, Jiangsu, China
 
 关于文件控制，有如下命令：
 
-* F_DUPFD - 复制文件句柄，等效于 `dup()`
-* F_GETFD / F_SETFD - 读取或设置文件句柄的 close_on_exec 标志
-* F_GETFL / F_SETFL - 读取或设置文件操作和访问标志
-  * RDONLY
-  * O_WRONLY
-  * O_RDWR
-  * O_APPEND
-  * O_NONBLOCK
-* F_GETLK / F_SETLK / F_SETLKW - 读取或设置文件上锁标志 (Linux 0.12 暂未实现)
+- F_DUPFD - 复制文件句柄，等效于 `dup()`
+- F_GETFD / F_SETFD - 读取或设置文件句柄的 close_on_exec 标志
+- F_GETFL / F_SETFL - 读取或设置文件操作和访问标志
+  - RDONLY
+  - O_WRONLY
+  - O_RDWR
+  - O_APPEND
+  - O_NONBLOCK
+- F_GETLK / F_SETLK / F_SETLKW - 读取或设置文件上锁标志 (Linux 0.12 暂未实现)
 
 ### 12.17.2 代码注释
 
@@ -132,6 +132,4 @@ int sys_fcntl(unsigned int fd, unsigned int cmd, unsigned long arg)
     }
 }
 ```
-
----
 

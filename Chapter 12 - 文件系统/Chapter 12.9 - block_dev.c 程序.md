@@ -10,10 +10,10 @@ Nanjing, Jiangsu, China
 
 接下来的部分是文件系统的数据访问操作，即系统调用 `sys_write()` 和 `sys_read()`，以及不同设备的低层支持函数：
 
-* 访问正规文件 - `file_write()` / `file_read()`
-* 访问管道文件 - `pipe_write()` / `pipe_read()`
-* 访问块设备文件 - `block_write()` / `block_read()`
-* 访问字符设备文件 - `rw_char()`
+- 访问正规文件：`file_write()` / `file_read()`
+- 访问管道文件：`pipe_write()` / `pipe_read()`
+- 访问块设备文件：`block_write()` / `block_read()`
+- 访问字符设备文件：`rw_char()`
 
 在系统调用中，根据参数提供的文件描述符的属性，判断出文件属于哪种类型，分别调用相应的处理函数，并进入对应的驱动程序中。
 
@@ -134,6 +134,4 @@ int block_read(int dev, unsigned long * pos, char * buf, int count)
     }
 }
 ```
-
----
 

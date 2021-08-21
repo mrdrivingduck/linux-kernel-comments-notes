@@ -58,8 +58,8 @@ static int permission(struct m_inode * inode, int mask)
 
 相当于 `strncmp` 函数：
 
-* 相同返回 1
-* 不同返回 0
+- 相同返回 1
+- 不同返回 0
 
 判断 len 长度的 name 是否与目录项 de 中的文件名相同。
 
@@ -1126,10 +1126,8 @@ int sys_link(const char * oldname, const char * newname)
 
 终于把这个最长的程序给过完了。本程序的子函数主要用于 **inode 数据结构** 和 **路径名** 之间的关联。关联成功后，对：
 
-* 指定路径及其父目录的 inode 数据结构
-* inode 对应的数据块
+- 指定路径及其父目录的 inode 数据结构
+- inode 对应的数据块
 
 进行 CRUD 等操作，并取得 inode 对应的逻辑块进行 CRUD 等。后续的函数都是文件、目录和链接的系统调用实现，全部借助于上述提及的子函数中的功能。
-
----
 

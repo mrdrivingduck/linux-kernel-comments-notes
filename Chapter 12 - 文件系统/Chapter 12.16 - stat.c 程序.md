@@ -14,8 +14,8 @@ Nanjing, Jiangsu, China
 
 实现获取文件状态信息的系统调用 `stat()` 和 `fstat()`，并将文件信息以 `stat` 结构体的形式返回到用户缓冲区中。`stat` 结构体中的所有字段信息都能在文件的 inode 中获得。
 
-* `stat()` 利用文件名获取信息
-* `fstat()` 使用文件句柄 (描述符) 来取得信息
+- `stat()` 利用文件名获取信息
+- `fstat()` 使用文件句柄 (描述符) 来取得信息
 
 ```c
 struct stat {
@@ -158,6 +158,4 @@ int sys_readlink(const char * path, char * buf, int bufsiz)
     return i;
 }
 ```
-
----
 

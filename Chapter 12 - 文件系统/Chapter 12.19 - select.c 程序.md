@@ -32,9 +32,9 @@ int select(int width, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, stru
 
 其中 `width` 是之后三个参数中，给出的数值最大的 fd 的值 + 1，用于让内核只在指定的范围内遍历所有 fd。比如给了 `10`，那么内核只需要遍历内核中前 10 个 fd 就够了。之后三个参数分别是用户空间关心的 fd 状态集合
 
-* 可读 fd 集合
-* 可写 fd 集合
-* 异常 fd 集合
+- 可读 fd 集合
+- 可写 fd 集合
+- 异常 fd 集合
 
 `fd_set` 变量实际上是一个无符号的 `long` 类型，其中每一位分别代表一个 fd，与 bitmap 类似。定义了四个宏操作描述符集合：
 
@@ -289,3 +289,4 @@ int sys_select(unsigned long *buffer)
     return i;
 }
 ```
+

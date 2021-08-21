@@ -65,8 +65,8 @@ struct super_block super_block[NR_SUPER]; // 8 项
 
 #### 测试指定位偏移处 bit 位的值
 
-* 仅测试并返回 bit 的值
-* 不对 bit 进行任何改动
+- 仅测试并返回 bit 的值
+- 不对 bit 进行任何改动
 
 ```c
 #define set_bit(bitnr, addr) ({ \
@@ -459,6 +459,4 @@ void mount_root(void)
 关于文件系统的挂载：首先需要根据挂载的设备名，找到设备 inode，从而取得设备号 → 找到文件系统的超级块。然后根据挂载点的目录名，找到挂载点目录的 inode；挂载后，文件系统超级块将指向挂载点的 inode，而挂载点的 inode 中则被设定为已经挂载了文件系统。
 
 挂载根文件系统时，根据根设备号得到根设备的超级块，并且在初始化过程中确定了 root inode。将超级块设定为指向 root inode，也就是根目录，从而完成挂载。
-
----
 
