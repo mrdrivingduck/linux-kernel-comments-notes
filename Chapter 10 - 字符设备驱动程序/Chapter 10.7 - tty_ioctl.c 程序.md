@@ -12,24 +12,16 @@ Ningbo, Zhejiang, China
 
 ### 10.7.1 功能描述
 
-实现了函数 `tty_ioctl()`，用于字符设备的控制操作
+实现了函数 `tty_ioctl()`，用于字符设备的控制操作。程序可以通过该函数修改指定终端 termios 结构体中的设置标志。该函数将由输入输出控制系统调用 `sys_ioctl()` 调用，用于实现基于 **文件系统** 的统一设备访问接口。一般用户程序不会直接使用 `sys_ioctl()`，而是：
 
-程序可以通过该函数修改指定终端 termios 结构体中的设置标志
-
-该函数将由输入输出控制系统调用 `sys_ioctl()` 调用
-
-用于实现基于 __文件系统__ 的统一设备访问接口
-
-一般用户程序不会直接使用 `sys_ioctl()`
-
-* 使用库函数中的封装函数
-* 使用 `ioctl()` 库函数
+- 使用库函数中的封装函数
+- 使用 `ioctl()` 库函数
 
 ### 10.7.2 代码注释
 
 #### change_speed() - 修改传输波特率
 
-首先定义了串行端口使用的 __波特率因子数组__
+首先定义了串行端口使用的 **波特率因子数组**。
 
 ```c
 static unsigned short quotient[] = {
@@ -39,11 +31,7 @@ static unsigned short quotient[] = {
 };
 ```
 
-在除数锁存标志 DLAB 置位的情况下
-
-对串口的两个端口分别写入波特率因子的低字节和高字节
-
-写完后复位 DLAB 位
+在除数锁存标志 DLAB 置位的情况下，对串口的两个端口分别写入波特率因子的低字节和高字节。写完后复位 DLAB 位。
 
 ```c
 static void change_speed(struct tty_struct * tty)
@@ -69,7 +57,7 @@ static void change_speed(struct tty_struct * tty)
 
 #### flush() - 刷新 tty 缓冲队列
 
-令缓冲队列的头指针等于尾指针，从而清空缓冲区
+令缓冲队列的头指针等于尾指针，从而清空缓冲区。
 
 ```c
 static void flush(struct tty_queue * queue)
@@ -116,11 +104,7 @@ static int set_termios(struct tty_struct * tty, struct termios * termios, int ch
 
 #### get_termio() / set_termios() - 读取/设置终端 termio 结构信息
 
-termio 结构与 termios 基本相同
-
-但标志集的数据类型不同
-
-所以要经过类型转换
+termio 结构与 termios 基本相同，但标志集的数据类型不同。所以要经过类型转换。
 
 ```c
 static int get_termio(struct tty_struct * tty, struct termio * termio)
@@ -175,15 +159,13 @@ static int set_termio(struct tty_struct * tty, struct termio * termio, int chann
 
 #### tty_ioctl() - tty 终端设备输入输出控制函数
 
-> 似乎与标准的 `ioctl()` 函数的参数相同
+> 似乎与标准的 `ioctl()` 函数的参数相同：
 >
-> * `int dev` - 设备号
-> * `int cmd` - 命令号
-> * `int arg` - 操作参数的指针
+> - `int dev`：设备号
+> - `int cmd`：命令号
+> - `int arg`：操作参数的指针
 
-该函数首先根据参数中的设备号找出对应终端的 tty 结构
-
-然后根据控制命令 cmd 分别进行处理
+该函数首先根据参数中的设备号找出对应终端的 tty 结构，然后根据控制命令 cmd 分别进行处理。
 
 ```c
 int tty_ioctl(int dev, int cmd, int ary)
@@ -324,16 +306,4 @@ int tty_ioctl(int dev, int cmd, int ary)
     }
 }
 ```
-
----
-
-## Summary
-
-这一章算是结束了
-
-这章中的内容和文件系统结合较为紧密
-
-所以接下来要看一看文件系统
-
----
 
